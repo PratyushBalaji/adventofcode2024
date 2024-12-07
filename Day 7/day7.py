@@ -32,5 +32,5 @@ def partTwo():
     validPairs = list(filter(lambda x: possibleP2(x[1],x[0]), pairs))
     return sum(i[0] for i in validPairs)
 
-print(partOne())
-print(partTwo())
+# print(partOne())
+# print(partTwo())
