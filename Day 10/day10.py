@@ -37,8 +37,6 @@ def partOne():
                 total_score += len(startTrail(i, j, visited))
     return total_score
 
-print(partOne())
-
 def countDistinctTrails(i, j, visited, path):
     if data[i][j] == 9: 
         path.add(tuple(visited))
@@ -67,4 +65,5 @@ def partTwo():
                 total_rating += len(path) 
     return total_rating
 
-print(partTwo())
+# print(partOne())
+# print(partTwo())
