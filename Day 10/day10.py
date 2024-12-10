@@ -29,13 +29,13 @@ def startTrail(i, j, visited):
 
 
 def partOne():
-    total_score = 0
+    totalScore = 0
     for i in range(len(data)):
         for j in range(len(data[i])):
             if data[i][j] == 0:
                 visited = set()
-                total_score += len(startTrail(i, j, visited))
-    return total_score
+                totalScore += len(startTrail(i, j, visited))
+    return totalScore
 
 def countDistinctTrails(i, j, visited, path):
     if data[i][j] == 9: 
