@@ -55,15 +55,15 @@ def countDistinctTrails(i, j, visited, path):
             visited.remove((nx, ny)) 
 
 def partTwo():
-    total_rating = 0
+    totalRating = 0
     for i in range(len(data)):
         for j in range(len(data[i])):
             if data[i][j] == 0:
                 path = set() 
                 visited = {(i, j)} 
                 countDistinctTrails(i, j, visited, path)
-                total_rating += len(path) 
-    return total_rating
+                totalRating += len(path) 
+    return totalRating
 
 # print(partOne())
 # print(partTwo())
