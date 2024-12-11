@@ -18,27 +18,19 @@ def digitCount(n):
 
 powersOf10 = [10 ** i for i in range(20)]
 
-memo = {}
-
 def blink(stones):
-    # global memo
     ret = []
     for i in stones:
         x = digitCount(i)
         # x = len(str(i))//2
-        # if i in memo:
-            # ret+=memo[i]
         if i == 0:
             ret.append(1)
-            # memo[i] = [1]
         elif x % 2 == 0:
             power = x // 2
             ret.append(i//powersOf10[power])
             ret.append(i%powersOf10[power])
-            # memo[i] = [i//powersOf10[power], i%powersOf10[power]]
         else:
             ret.append(2024*i)
-            # memo[i] = [2024*i]
     
     return ret
 
@@ -50,22 +42,34 @@ def blinkelem(stone):
         return [stone//powersOf10[power],stone%powersOf10[power]]
     return [2024*stone]
 
-def partOne():
+def partOneUnoptimised():
     x = [int(i) for i in data.split(' ')]
-    print(x)
-    for _ in range(25):
+    for _ in range(25): # This implementation was extremely slow for part two
         x = blink(x)
     return len(x)
 
-from itertools import chain
+# optimised function that memoises recursive calls
+memo = {}
+def numStones(seedStone,blinksLeft):
+    newBlinksLeft = blinksLeft - 1
+    if (seedStone,blinksLeft) in memo:
+        return memo[(seedStone,blinksLeft)]
+    if blinksLeft == 0:
+        return 1
+    if seedStone == '0':
+        return numStones('1',newBlinksLeft)
+    if len(seedStone) % 2 == 1:
+        return numStones(str(int(seedStone)*2024),newBlinksLeft)
+    memo[(seedStone,blinksLeft)] = numStones(seedStone[:len(seedStone)//2],newBlinksLeft) + numStones(seedStone[len(seedStone)//2:],newBlinksLeft)
+    return memo[(seedStone,blinksLeft)]
+
+def partOneOptimised():
+    x = data.split(' ')
+    return sum(map(numStones,x,[25]*len(x)))
+
 def partTwo():
-    x = [int(i) for i in data.split(' ')]
-    for i in range(75):
-        x = blink(x)
-        if i%10 == 0:
-            print(i)
-        # x = list(chain.from_iterable(list(map(blinkelem,x))))
-    return len(x)
+    x = data.split(' ')
+    return sum(map(numStones,x,[75]*len(x)))
 
-# print(partOne())
+print(partOneOptimised())
 print(partTwo())
