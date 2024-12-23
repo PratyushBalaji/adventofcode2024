@@ -17,28 +17,6 @@ availablePatterns = data[0].strip().split(', ')
 # bbrgwb - impossible
 
 requiredPatterns = [i.strip() for i in data[2:]]
-# print(requiredPatterns)
-
-# def possible(pattern):
-#     contenders = []
-#     if pattern == '':
-#         return True
-#     for i in availablePatterns:
-#         if pattern.startswith(i):
-#             contenders.append(pattern[len(i):])
-#     if not contenders:
-#         return False
-#     return True in map(possible,contenders)
-
-# def partOne():
-#     count = 0
-#     index = 0
-#     for i in requiredPatterns:
-#         if possible(i):
-#             count += 1
-#         print(index)
-#         index += 1
-#     return count
 
 memo = {}
 
@@ -63,7 +41,27 @@ def partOne():
         print(f"Checked design {i + 1}/{len(requiredPatterns)}")
     return count
 
-print(partOne())
+memo2 = {}
+def possibilities(pattern):
+    if pattern in memo2:
+        return memo2[pattern]
+    
+    if pattern == '':
+        return 1
+    
+    ways = 0
+    for towel in availablePatterns:
+        if pattern.startswith(towel):
+            ways += possibilities(pattern[len(towel):])
+    
+    memo2[pattern] = ways
+    return ways
 
 def partTwo():
-    ...
+    totalWays = 0
+    for design in requiredPatterns:
+        totalWays += possibilities(design)
+    return totalWays
+    
+# print(partOne())
+# print(partTwo())
