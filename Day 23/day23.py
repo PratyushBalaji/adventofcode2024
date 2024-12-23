@@ -24,7 +24,36 @@ def filterTriangles(triangles):
 
 def partOne():
     triangles = findTriangles(graph)
-    filtered_triangles = filterTriangles(triangles)
-    return len(filtered_triangles)
+    filteredTriangles = filterTriangles(triangles)
+    return len(filteredTriangles)
 
-print(partOne())
+# https://en.wikipedia.org/wiki/Bron%E2%80%93Kerbosch_algorithm
+def bron_kerbosch(R, P, X, graph, cliques):
+    if not P and not X: # if P and X are both empty then
+        cliques.append(R) # report R as a maximal clique
+        return
+    for v in list(P): # for each vertex v in P do
+        bron_kerbosch(
+            R.union({v}), # R = R ⋃ {v}
+            P.intersection(graph[v]), # P = P ⋂ N(v)
+            X.intersection(graph[v]), # X = X ⋂ N(v)
+            graph,
+            cliques)
+        P.remove(v) # P := P \ {v}
+        X.add(v) # X := X ⋃ {v}
+
+def findLargestClique(graph):
+    cliques = []
+    nodes = set(graph.keys())
+    bron_kerbosch(set(), nodes, set(), graph, cliques)
+
+    largestClique = max(cliques, key=len)
+    return largestClique
+
+def partTwo():
+    largestClique = findLargestClique(graph)
+    password = ",".join(sorted(largestClique))
+    return password
+
+# print(partOne())
+# print(partTwo())
