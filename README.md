@@ -16,3 +16,13 @@ If you too are planning on participating this year or in the future, read throug
 ## Have fun coding! 
 Check it out at :
 [https://adventofcode.com](https://adventofcode.com)
+
+## My AoC 2024 Stats
+
+Day | Completion | Day | Completion | Day | Completion | Day | Completion | Day | Completion
+--- | --- | --- | --- | --- | --- | --- | --- | --- | ---
+1 | ** | 6 | ** | 11 | ** | 16 | * | 21 | **
+2 | ** | 7 | ** | 12 | * | 17 | ** | 22 | **
+3 | ** | 8 |  | 13 | * | 18 | ** | 23 | **
+4 | ** | 9 | * | 14 | ** | 19 | ** | 24 | *
+5 | ** | 10 | ** | 15 | * | 20 | ** | 25 | *
